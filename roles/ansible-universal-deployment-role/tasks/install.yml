@@ -24,7 +24,7 @@
     owner: "{{ binary_system_user }}"
     group: "{{ binary_system_group }}"
     mode: '0755'
-  when: binary_config_path
+  when: binary_config_path|bool
 
 - name: Download binary to local folder
   become: false

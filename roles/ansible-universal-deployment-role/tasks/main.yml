@@ -7,7 +7,7 @@
 
 - import_tasks: install.yml
   become: true
-  when: (not __binary_is_installed.stat.exists) or (vm_version not in __binary_current_version_output)
+  when: (not __binary_is_installed.stat.exists) or (binary_version not in __binary_current_version_output)
   tags:
     - binary_install
 
