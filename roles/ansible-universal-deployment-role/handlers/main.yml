@@ -1,0 +1,8 @@
+---
+- name: restart binary
+  become: true
+  systemd:
+    daemon_reload: true
+    name: "{{ binary_name }}"
+    state: restarted
+

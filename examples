@@ -1,0 +1,4 @@
+# file: examples
+
+[monitoring]
+example_host ansible_host=

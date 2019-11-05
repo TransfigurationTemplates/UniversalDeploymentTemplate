@@ -1,0 +1,18 @@
+---
+# binary_version: # Integer version or "latest"
+# binary_supports_version: true # or false, basically, does it support the argument --version if not, specify custom binary_version_argument.
+# binary_name: "example-binary" #Used in names of tasks as explaination of task function.
+# binary_version_argument: "--version"
+# binary_config_path: "/etc/binary" #where you wnat to save the configuration data ( if any )
+# binary_bindaddr: "0.0.0.0:8428" # OPTIONAL. Port to bind to if binary does this. Ex. "0.0.0.0:8428"
+# binary_system_user: "some-user"
+# binary_system_group: "{{ binary_system_user }}" 
+# binary_download_filename: "examplefile_amd64.tar.gz"
+# binary_github_usr_repo: "CoolGithubUsername/RepoName" # a real example would be <insert here>
+# binary_service_description: "Binary Service To Do Stuff"
+# one_or_two_dashes: "--" # or, you know "-", This is for arguments, what kind does it need? --option or -option ?
+
+# binary_service_config:
+#   bind-addr: "{{ binary_bindaddr }}"
+#   user: "{{ binary_system_user }}"
+# # data like this ^ is added to the service file to config extra options in the configuration file. 

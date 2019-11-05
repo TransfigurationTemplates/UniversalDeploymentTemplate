@@ -1,0 +1,21 @@
+---
+###
+# Used https://github.com/caarlos0/domain_exporter as an Example configuration for deployment
+###
+binary_version: 1.4.0 # Integer version or "latest"
+binary_supports_version: true # or false, basically, does it support the argument --version if not, specify custom binary_version_argument.
+binary_name: "domain_exporter" #Used in names of tasks as explaination of task function.
+binary_version_argument: "-version"
+binary_config_path: #where you wnat to save the configuration data ( if any )
+binary_bindaddr: "0.0.0.0:9222" # OPTIONAL. Port to bind to if binary does this. Ex. "0.0.0.0:8428"
+binary_system_user: "dmexporter"
+binary_system_group: "{{ binary_system_user }}" 
+binary_download_filename: "domain_exporter_linux_amd64.tar.gz"
+binary_github_usr_repo: "caarlos0/domain_exporter" # a real example would be <insert here>
+binary_service_description: "Prometheus Domain Exporter"
+one_or_two_dashes: "-" # or, you know "-", This is for arguments, what kind does it need? --option or -option ?
+
+binary_service_config:
+  b: "{{ binary_bindaddr }}"
+# data like this ^ is added to the service file to config extra options in the configuration file. 
+# format: option: "value", translates to -option "value"

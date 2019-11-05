@@ -1,0 +1,7 @@
+---
+- hosts: all
+  gather_facts: yes
+  become: true
+  remote_user: root
+  roles:
+  - { role: ansible-universal-deployment-role, tags: [ 'domain-exporter', 'never' ] }

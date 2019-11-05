@@ -1,0 +1,9 @@
+---
+- name: Copy the binary systemd service file
+  template:
+    src: binary.service.j2
+    dest: "/etc/systemd/system/{{ binary_name }}.service"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart binary

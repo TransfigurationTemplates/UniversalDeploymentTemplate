@@ -1,0 +1,64 @@
+---
+- name: Create the binary group
+  group:
+    name: "{{ binary_system_group }}"
+    state: present
+    system: true
+  when: binary_system_group != "root"
+
+- name: Create the binary user
+  user:
+    name: "{{ binary_system_user }}"
+    groups: "{{ binary_system_group }}"
+    append: true
+    shell: /usr/sbin/nologin
+    system: true
+    createhome: false
+    home: /
+  when: binary_system_user != "root"
+
+- name: Ensure Config directory exists with correct permissions
+  file:
+    path: "{{ binary_config_path }}"
+    state: directory
+    owner: "{{ binary_system_user }}"
+    group: "{{ binary_system_group }}"
+    mode: '0755'
+  when: binary_config_path
+
+- name: Download binary to local folder
+  become: false
+  get_url:
+    url: "https://github.com/{{ binary_github_usr_repo }}/releases/download/v{{ binary_version }}/{{ binary_download_filename }}"
+    dest: "/tmp/{{ binary_download_filename }}"
+  register: _download_binary
+  until: _download_binary is succeeded
+  retries: 5
+  delay: 2
+  delegate_to: localhost
+  check_mode: false
+
+- name: Unpack binary binary
+  become: false
+  unarchive:
+    src: "/tmp/{{ binary_download_filename }}"
+    dest: "/tmp"
+    creates: "/tmp/{{ binary_name }}"
+  delegate_to: localhost
+  check_mode: false
+
+- name: Create /usr/local/bin
+  file:
+    path: /usr/local/bin
+    state: directory
+    mode: 0755
+
+- name: Propagate binary binaries
+  copy:
+    src: "/tmp/{{ binary_name }}"
+    dest: "/usr/local/bin/{{ binary_name }}"
+    mode: 0755
+    owner: root
+    group: root
+  notify: restart binary
+  when: not ansible_check_mode
