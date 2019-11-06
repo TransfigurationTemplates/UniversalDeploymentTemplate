@@ -11,7 +11,7 @@ User={{ binary_system_user }}
 Group={{ binary_system_group }}
 ExecStart=/usr/local/bin/{{ binary_name }} \
 {% for key, value in binary_service_config.items() %}
-{{ one_or_two_dashes }}{{ key|e }} {{ value|e }} \
+{{ one_or_two_dashes }}{{ key|e }} "{{ value|e }}" \
 {% endfor %}
 
 ExecReload=/bin/kill -s HUP $MAINPID
